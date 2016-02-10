@@ -1,0 +1,38 @@
+@Html.Partial("header.cshtml")
+<div class="controls">
+  <ul>
+    <li><a href="/addTama">Add New Tamagotchi</a></li>
+    <li><a href="/time">Pass Time</a></li>
+    <li><a href="/clearAll">Clear All</a></li>
+    <li><a href="/clearDead">Clear Dead</a></li>
+  </ul>
+</div>
+@foreach(var tama in Model) {
+  @if(tama.IsDead()) {
+    <div class="tama">
+      <p>OOPS I'M DEAD</p>
+      <a href="/remove/@tama.GetId()">Remove Me</a>
+    </div>
+  } else {
+    <div class="tama">
+      <ul>
+        <li>Food: @tama.GetFood()</li>
+        <li>Attention: @tama.GetAttention()</li>
+        <li>Water: @tama.GetWater()</li>
+      </ul>
+      <ul>
+        <li><a href="/feed/@tama.GetId()">Feed</a></li>
+        <li><a href="/water/@tama.GetId()">Water</a></li>
+        <li><a href="/attention/@tama.GetId()">Give Attention</a></li>
+      </ul>
+    </div>
+  }
+}
+
+<script type="text/javascript">
+  function passTime() {
+    window.location.href="/time";
+  }
+
+  setTimeout(passTime, 1000);
+</script>
